@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Librería Belen: suministros de oficina, útiles escolares y materiales de arte con calidad y buen precio. Atención personalizada y campaña escolar 2026.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://via.placeholder.com; font-src 'self'; frame-src https://www.google.com; upgrade-insecure-requests">
+    <title>Nosotros - LIBRERÍA BELEN</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium-styles.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="img/logonuevo.png" alt="Librería Belen">
+            </a>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-icons">
+                <div class="cart-icon" onclick="window.location.href='catalog.html'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-links">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalog.html">Catálogo</a></li>
+                <li><a href="about.html" class="active">Nosotros</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="about-content">
+            <h1 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Sobre Nosotros</h1>
+            <p style="font-size: 1.1rem; margin-bottom: var(--spacing-md);">
+                Bienvenido a <strong>LIBRERÍA BELEN</strong>. Somos un negocio que recién comienza y está en proceso de
+                crecimiento, con la meta de convertirnos en tu librería de confianza en Lima. Ofrecemos útiles escolares,
+                papelería, cuadernos, artículos de oficina y materiales de arte, con atención cercana y precios accesibles.
+                También realizamos pedidos por delivery para que recibas todo sin complicaciones.
+            </p>
+
+            <h2 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Nuestra Misión</h2>
+            <p style="margin-bottom: var(--spacing-md);">
+                Brindar útiles escolares, papelería, cuadernos, artículos de oficina y materiales de arte con calidad,
+                buena atención y precios accesibles. Complementamos con servicios de apoyo académico y escolar para que
+                cada estudiante y profesional logre sus metas con confianza.
+            </p>
+
+            <h2 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Nuestra Visión</h2>
+            <p style="margin-bottom: var(--spacing-md);">
+                Ser la librería preferida del Cercado de Lima, reconocida por su cercanía, cumplimiento y variedad,
+                ofreciendo delivery eficiente y soluciones completas para el estudio, el trabajo y los proyectos
+                técnicos o universitarios.
+            </p>
+
+            <h2 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">¿Por qué elegirnos?</h2>
+            <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: var(--spacing-md);">
+                <li>Delivery rápido en Lima y atención personalizada.</li>
+                <li>Asesoría para listas escolares y compras por volumen.</li>
+                <li>Variedad en útiles, papelería, cuadernos, arte y oficina.</li>
+                <li>Apoyo en trabajos escolares y académicos (investigación y redacción).</li>
+                <li>Compromiso con la calidad y precios justos.</li>
+            </ul>
+
+            <div style="text-align: center; margin-top: var(--spacing-lg);">
+                <a href="catalog.html" class="btn btn-primary">Explorar Nuestros Productos</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>LIBRERÍA BELEN</h3>
+                <p>Tu librería de confianza en Cercado de Lima: útiles escolares, papelería, cuadernos y materiales de arte. Campaña escolar 2026 con precios especiales.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalog.html">Catálogo</a></li>
+                    <li><a href="about.html">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/51947872207" target="_blank" rel="noopener">Haz clic aquí</a>
+                </p>
+                <p><i class="fas fa-envelope"></i> </p>
+                <p><i class="fas fa-map-marker-alt"></i> Jr. Conchucos 120 - Cercado de Lima</p>
+            </div>
+        </div>
+        <div
+            style="text-align: center; padding-top: var(--spacing-lg); border-top: 1px solid #333; margin-top: var(--spacing-lg);">
+            <p>&copy; 2026 LIBRERÍA BELEN. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="catalog.html">
+            <i class="fas fa-th"></i>
+            <span>Catálogo</span>
+        </a>
+        <a href="catalog.html#cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Carrito</span>
+        </a>
+        <a href="about.html" class="active">
+            <i class="fas fa-info-circle"></i>
+            <span>Nosotros</span>
+        </a>
+    </nav>
+
+    <a class="whatsapp-float" href="https://wa.me/51947872207" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+        <span>Consulta aquí</span>
+    </a>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
