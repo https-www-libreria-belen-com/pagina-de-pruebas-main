@@ -21,9 +21,11 @@
                 <img src="img/logonuevo.png" alt="Librería Belen">
             </a>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar...">
-                <button><i class="fas fa-search"></i></button>
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="searchInput" placeholder="Buscar productos, marcas y más..."
+                    oninput="handleSearchInput(this.value)">
+                <button onclick="executeSearch()"><i class="fas fa-search"></i></button>
+                <div id="searchResults" class="search-results-dropdown"></div>
             </div>
 
             <div class="nav-icons">
@@ -144,6 +146,7 @@
         <span>Consulta aquí</span>
     </a>
 
+    <script src="data/products.js"></script>
     <script src="js/app.js"></script>
 </body>
 
