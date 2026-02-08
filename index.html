@@ -7,8 +7,7 @@
     <meta name="description" content="Librería Belen en Lima: útiles escolares, papelería, cuadernos, arte y oficina. Campaña escolar 2026, marcas como Faber‑Castell y Artesco, envío gratis en estaciones de la Línea 1.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://via.placeholder.com; font-src 'self'; frame-src https://www.google.com; upgrade-insecure-requests">
     <title>LIBRERÍA BELEN - Suministros de Oficina y Escolares</title>
-    <link rel="preload" as="image" href="images/nueva%20portada2.avif" type="image/avif">
-    <link rel="preload" as="image" href="images/portada%20nueva.jpg" type="image/jpeg">
+    <link rel="preload" as="image" href="images/portada1.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/premium-styles.css">
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
@@ -69,29 +68,31 @@
 
     <main id="main-content" tabindex="-1">
     <!-- Hero Section -->
-    <section class="home-hero" data-hero-carousel data-autoplay="false" aria-label="Promociones principales">
+    <section class="home-hero" data-hero-carousel data-autoplay="true" aria-label="Promociones principales">
         <div class="home-hero-track">
             <article class="home-hero-slide is-active" data-hero-slide>
                 <picture class="home-hero-media" aria-hidden="true">
-                    <source srcset="images/nueva%20portada2.avif" type="image/avif">
-                    <img src="images/portada%20nueva.jpg" alt="" fetchpriority="high" loading="eager" decoding="async">
+                    <img src="images/portada1.png" alt="Portada principal Librería Belen" width="4096" height="1024" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
-                <div class="home-hero-overlay"></div>
-                <div class="home-hero-content container">
-                    <span class="home-hero-tag">Luxury Editorial 2026</span>
-                    <h1>Un catálogo curado para volver al cole con estilo</h1>
-                    <p>Menos vueltas, mejores elecciones: útiles, papelería y cuadernos listos para comprar en minutos.</p>
-                    <div class="home-hero-actions">
-                        <a href="catalog.html" class="btn btn-primary">Comprar ahora</a>
-                        <a href="https://wa.me/51947872207" class="btn btn-outline-light" target="_blank" rel="noopener">Asesoría por WhatsApp</a>
-                    </div>
-                    <ul class="home-hero-benefits">
-                        <li><i class="fas fa-circle-check"></i> Entrega rápida en Lima</li>
-                        <li><i class="fas fa-circle-check"></i> Atención personalizada</li>
-                        <li><i class="fas fa-circle-check"></i> Catálogo actualizado</li>
-                    </ul>
-                </div>
             </article>
+
+            <article class="home-hero-slide" data-hero-slide>
+                <div class="home-hero-fill" aria-hidden="true"></div>
+                <div class="home-hero-overlay"></div>
+            </article>
+        </div>
+
+        <div class="home-hero-controls" aria-label="Controles del carrusel principal">
+            <button type="button" class="home-hero-nav home-hero-prev" data-hero-prev aria-label="Anterior publicación">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="home-hero-dots" role="tablist" aria-label="Seleccionar publicación de portada">
+                <button type="button" class="home-hero-dot is-active" data-hero-dot aria-label="Ir a publicación 1"></button>
+                <button type="button" class="home-hero-dot" data-hero-dot aria-label="Ir a publicación 2"></button>
+            </div>
+            <button type="button" class="home-hero-nav home-hero-next" data-hero-next aria-label="Siguiente publicación">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
         </div>
     </section>
 
