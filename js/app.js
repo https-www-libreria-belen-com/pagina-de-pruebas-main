@@ -181,15 +181,6 @@ function sanitizeUrl(url) {
     }
 }
 
-function sanitizeCsvValue(value) {
-    let text = String(value ?? '');
-    if (/^[=+\-@]/.test(text)) {
-        text = `'${text}`;
-    }
-    text = text.replace(/"/g, '""');
-    return `"${text}"`;
-}
-
 function initImageFallbackHandler() {
     document.addEventListener('error', (event) => {
         const target = event.target;
@@ -216,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDynamicYear();
     initVisualMicroInteractions();
     initExperimentalDesignLayer();
+    initPremiumFeatures();
 
     if (productGrid) {
         // Catalog Page Logic
@@ -1429,11 +1421,7 @@ function filterByBrand(brand) {
     applyFilters();
 }
 
-function searchProducts() { executeSearch(); }
-
 function toggleSidebar() { if (sidebar) sidebar.classList.toggle('open'); }
-
-function buyNow(productId) { addToCart(productId); openCart(); }
 function removeFromCart(productId) { cart = cart.filter(item => item.id !== productId); saveCart(); renderCart(); updateCartCount(); }
 function updateQuantity(productId, change) {
     const item = cart.find(item => item.id === productId);
@@ -2027,76 +2015,6 @@ function applyPricePendingUI() {
             currentSort = 'featured';
         }
     }
-}
-
-function initCsvExport() {
-    const btn = document.getElementById('exportCsvBtn');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-        if (!products || products.length === 0) {
-            showToast('No hay productos para exportar.', 'error');
-            return;
-        }
-        exportProductsCsv(products);
-    });
-}
-
-function exportProductsCsv(list) {
-    const headers = [
-        'id',
-        'slug',
-        'titulo',
-        'categoria',
-        'subcategoria',
-        'marca',
-        'precio',
-        'stock',
-        'descripcion',
-        'imagen',
-        'link'
-    ];
-
-    const rows = list.map(product => {
-        const original = window.PRODUCTS ? window.PRODUCTS[product.slug] : null;
-        return [
-            product.id,
-            product.slug,
-            product.title,
-            product.category,
-            product.subcategory,
-            product.brand,
-            product.price,
-            original && Number.isFinite(Number(original.stock)) ? original.stock : '',
-            product.longDescription || product.description || '',
-            product.image,
-            original ? original.link || '' : ''
-        ];
-    });
-
-    const csvLines = [
-        headers.map(sanitizeCsvValue).join(','),
-        ...rows.map(row => row.map(sanitizeCsvValue).join(','))
-    ];
-
-    const csvContent = `\uFEFF${csvLines.join('\n')}`;
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    const date = new Date().toISOString().slice(0, 10);
-    link.href = url;
-    link.download = `libreria_belen_base_${date}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    showToast('CSV generado correctamente.', 'success');
-}
-
-// Initialize Premium Features
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPremiumFeatures);
-} else {
-    initPremiumFeatures();
 }
 
 function initPremiumFeatures() {

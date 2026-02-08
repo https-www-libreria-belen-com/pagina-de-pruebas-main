@@ -1210,10 +1210,14 @@ footer::before {
     width: 70%;
 }
 
-.catalog-toolbar {
+.catalog-toolbar-zone {
     position: sticky;
     top: 0.6rem;
     z-index: 20;
+}
+
+.catalog-toolbar {
+    position: static;
 }
 
 .catalog-toolbar-main {
@@ -1298,7 +1302,7 @@ footer .btn {
         margin-bottom: 1.4rem;
     }
 
-    .catalog-toolbar {
+    .catalog-toolbar-zone {
         top: 0.4rem;
     }
 

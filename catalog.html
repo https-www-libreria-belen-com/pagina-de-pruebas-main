@@ -122,20 +122,22 @@
 
         <!-- Product Grid -->
         <section class="catalog-main">
-            <div class="catalog-toolbar">
-                <div class="catalog-toolbar-main">
-                    <h2 class="section-title catalog-title">Productos</h2>
-                    <p id="catalogResultsCount" class="catalog-results-count" aria-live="polite"></p>
+            <div class="catalog-toolbar-zone">
+                <div class="catalog-toolbar">
+                    <div class="catalog-toolbar-main">
+                        <h2 class="section-title catalog-title">Productos</h2>
+                        <p id="catalogResultsCount" class="catalog-results-count" aria-live="polite"></p>
+                    </div>
+                    <select id="sortSelect" class="catalog-sort">
+                        <option value="featured">Ordenar por: Destacados</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="name-asc">Nombre: A-Z</option>
+                        <option value="name-desc">Nombre: Z-A</option>
+                    </select>
                 </div>
-                <select id="sortSelect" class="catalog-sort">
-                    <option value="featured">Ordenar por: Destacados</option>
-                    <option value="price-asc">Precio: Menor a Mayor</option>
-                    <option value="price-desc">Precio: Mayor a Menor</option>
-                    <option value="name-asc">Nombre: A-Z</option>
-                    <option value="name-desc">Nombre: Z-A</option>
-                </select>
+                <div id="activeFilters" class="active-filters" aria-live="polite"></div>
             </div>
-            <div id="activeFilters" class="active-filters" aria-live="polite"></div>
 
             <div id="product-grid" class="product-grid">
                 <!-- Products will be loaded via JS -->
