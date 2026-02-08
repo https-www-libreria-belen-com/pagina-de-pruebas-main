@@ -12,28 +12,41 @@
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
 </head>
 
-<body>
+<body class="ultra-minimal">
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <p><i class="fas fa-store"></i> Atención en tienda: Lun a Sáb de 8:30 a.m. a 8:00 p.m.</p>
+            <a href="https://wa.me/51947872207" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i> Pedidos por WhatsApp
+            </a>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="main-header">
         <div class="header-container">
             <a href="index.html" class="logo">
-                <img src="img/logonuevo.png" alt="Librería Belen">
+                <img src="img/logonuevo.png" alt="Librería Belen" decoding="async">
             </a>
 
             <div class="search-bar" style="position: relative;">
                 <input type="text" id="searchInput" placeholder="Buscar productos, marcas y más..."
                     oninput="handleSearchInput(this.value)">
-                <button onclick="executeSearch()"><i class="fas fa-search"></i></button>
+                <button type="button" onclick="executeSearch()" aria-label="Buscar productos"><i class="fas fa-search"></i></button>
                 <div id="searchResults" class="search-results-dropdown"></div>
             </div>
 
             <div class="nav-icons">
-                <div class="cart-icon" onclick="window.location.href='catalog.html'">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Cambiar tema visual">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button type="button" class="cart-icon" onclick="window.location.href='catalog.html'" aria-label="Ir al catálogo">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count">0</span>
-                </div>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                </button>
+                <button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú móvil">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -51,7 +64,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container">
+    <main id="main-content" class="container" tabindex="-1">
         <div class="about-content">
             <h1 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Sobre Nosotros</h1>
             <p style="font-size: 1.1rem; margin-bottom: var(--spacing-md);">
@@ -88,7 +101,7 @@
                 <a href="catalog.html" class="btn btn-primary">Explorar Nuestros Productos</a>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -103,21 +116,27 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalog.html">Catálogo</a></li>
                     <li><a href="about.html">Nosotros</a></li>
+                    <li><a href="https://maps.app.goo.gl/QyMt76Eo8Yr2KrZt5" target="_blank" rel="noopener">Cómo llegar</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <p>
                     <i class="fab fa-whatsapp"></i>
-                    <a href="https://wa.me/51947872207" target="_blank" rel="noopener">Haz clic aquí</a>
+                    <a href="https://wa.me/51947872207" target="_blank" rel="noopener">+51 947 872 207</a>
                 </p>
-                <p><i class="fas fa-envelope"></i> </p>
                 <p><i class="fas fa-map-marker-alt"></i> Jr. Conchucos 120 - Cercado de Lima</p>
+                <p><i class="fas fa-clock"></i> Lun a Sáb: 8:30 a.m. - 8:00 p.m.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Compra Rápida</h3>
+                <p>Atendemos listas escolares completas y pedidos por volumen para aulas y oficinas.</p>
+                <a class="btn btn-primary" href="catalog.html">Ir al catálogo</a>
             </div>
         </div>
         <div
             style="text-align: center; padding-top: var(--spacing-lg); border-top: 1px solid #333; margin-top: var(--spacing-lg);">
-            <p>&copy; 2026 LIBRERÍA BELEN. Todos los derechos reservados.</p>
+            <p>&copy; <span data-current-year>2026</span> LIBRERÍA BELEN. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -146,8 +165,8 @@
         <span>Consulta aquí</span>
     </a>
 
-    <script src="data/products.js"></script>
-    <script src="js/app.js"></script>
+    <script src="data/products.js" defer></script>
+    <script src="js/app.js" defer></script>
 </body>
 
 </html>

@@ -7,34 +7,49 @@
     <meta name="description" content="Librería Belen en Lima: útiles escolares, papelería, cuadernos, arte y oficina. Campaña escolar 2026, marcas como Faber‑Castell y Artesco, envío gratis en estaciones de la Línea 1.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://via.placeholder.com; font-src 'self'; frame-src https://www.google.com; upgrade-insecure-requests">
     <title>LIBRERÍA BELEN - Suministros de Oficina y Escolares</title>
+    <link rel="preload" as="image" href="images/nueva%20portada2.avif" type="image/avif">
+    <link rel="preload" as="image" href="images/portada%20nueva.jpg" type="image/jpeg">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/premium-styles.css">
     <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
 </head>
 
-<body>
+<body class="ultra-minimal">
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <p><i class="fas fa-store"></i> Atención en tienda: Lun a Sáb de 8:30 a.m. a 8:00 p.m.</p>
+            <a href="https://wa.me/51947872207" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i> Pedidos por WhatsApp
+            </a>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="main-header">
         <div class="header-container">
             <a href="index.html" class="logo">
-                <img src="img/logonuevo.png" alt="Librería Belen">
+                <img src="img/logonuevo.png" alt="Librería Belen" decoding="async">
             </a>
 
             <div class="search-bar" style="position: relative;">
                 <input type="text" id="searchInput" placeholder="Buscar productos, marcas y más..."
                     oninput="handleSearchInput(this.value)">
-                <button onclick="executeSearch()"><i class="fas fa-search"></i></button>
+                <button type="button" onclick="executeSearch()" aria-label="Buscar productos"><i class="fas fa-search"></i></button>
                 <div id="searchResults" class="search-results-dropdown"></div>
             </div>
 
             <div class="nav-icons">
-                <div class="cart-icon" onclick="window.location.href='catalog.html'">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Cambiar tema visual">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button type="button" class="cart-icon" onclick="window.location.href='catalog.html'" aria-label="Ir al catálogo">
                     <!-- For now links to cart page or modal logic later -->
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
-                </div>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                </button>
+                <button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú móvil">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -52,60 +67,55 @@
         </div>
     </nav>
 
+    <main id="main-content" tabindex="-1">
     <!-- Hero Section -->
-    <section class="hero hero-carousel">
-        <div class="hero-slides">
-            <div class="hero-slide active" style="background-image: url('images/nueva%20portada2.avif');">
-                <div class="container">
-                    <h1>¡Bienvenidos a Librería Belen!</h1>
-                    <p>Campaña escolar 2026: colores, cuadernos y útiles al mejor precio para un inicio escolar lleno de energía.</p>
-                    <a href="catalog.html" class="btn btn-primary">Ver Catálogo Completo</a>
+    <section class="home-hero" data-hero-carousel data-autoplay="false" aria-label="Promociones principales">
+        <div class="home-hero-track">
+            <article class="home-hero-slide is-active" data-hero-slide>
+                <picture class="home-hero-media" aria-hidden="true">
+                    <source srcset="images/nueva%20portada2.avif" type="image/avif">
+                    <img src="images/portada%20nueva.jpg" alt="" fetchpriority="high" loading="eager" decoding="async">
+                </picture>
+                <div class="home-hero-overlay"></div>
+                <div class="home-hero-content container">
+                    <span class="home-hero-tag">Luxury Editorial 2026</span>
+                    <h1>Un catálogo curado para volver al cole con estilo</h1>
+                    <p>Menos vueltas, mejores elecciones: útiles, papelería y cuadernos listos para comprar en minutos.</p>
+                    <div class="home-hero-actions">
+                        <a href="catalog.html" class="btn btn-primary">Comprar ahora</a>
+                        <a href="https://wa.me/51947872207" class="btn btn-outline-light" target="_blank" rel="noopener">Asesoría por WhatsApp</a>
+                    </div>
+                    <ul class="home-hero-benefits">
+                        <li><i class="fas fa-circle-check"></i> Entrega rápida en Lima</li>
+                        <li><i class="fas fa-circle-check"></i> Atención personalizada</li>
+                        <li><i class="fas fa-circle-check"></i> Catálogo actualizado</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="hero-slide hero-slide-light">
-                <div class="container">
-                    <h1>Delivery gratis</h1>
-                    <p>Delivery gratis a cualquier estación del tren - Metro de Lima.</p>
-                    <a href="catalog.html" class="btn btn-primary">Ver Catálogo Completo</a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-dots">
-            <button class="hero-dot active" aria-label="Slide 1"></button>
-            <button class="hero-dot" aria-label="Slide 2"></button>
+            </article>
         </div>
     </section>
 
-    <!-- Trust Badges -->
-    <div class="trust-badges">
-        <div class="trust-badge">
-            <i class="fas fa-shipping-fast"></i>
-            <span>Envío gratis: Línea 1 del tren (Lima)</span>
+    <section class="container conversion-strip reveal-on-scroll">
+        <div class="conversion-strip-card">
+            <p>¿Tienes lista escolar completa?</p>
+            <strong>Te ayudamos a armar tu pedido en menos de 10 minutos.</strong>
+            <div class="conversion-strip-actions">
+                <a href="catalog.html" class="btn btn-primary">Ver catálogo</a>
+                <a href="https://wa.me/51947872207" class="btn btn-outline-light" target="_blank" rel="noopener">Empezar por WhatsApp</a>
+            </div>
         </div>
-        <div class="trust-badge">
-            <i class="fas fa-shield-alt"></i>
-            <span>Garantía de Calidad</span>
-        </div>
-        <div class="trust-badge">
-            <i class="fas fa-headset"></i>
-            <span>Atención 24/7</span>
-        </div>
-        <div class="trust-badge">
-            <i class="fas fa-lock"></i>
-            <span>Pago Seguro</span>
-        </div>
-    </div>
+    </section>
 
     <!-- Featured Carousel -->
     <section class="container" style="margin-bottom: var(--spacing-xl);">
         <h2 class="section-title">Nuevos Ingresos</h2>
         <div class="carousel-container">
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button type="button" class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Desplazar carrusel a la izquierda"><i class="fas fa-chevron-left"></i></button>
             <div class="carousel-track" id="featured-carousel">
                 <!-- Random products will be loaded via JS -->
                 <p style="text-align: center; width: 100%; padding: 2rem;">Cargando novedades...</p>
             </div>
-            <button class="carousel-btn next" onclick="scrollCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+            <button type="button" class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Desplazar carrusel a la derecha"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -136,6 +146,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -150,21 +161,27 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="catalog.html">Catálogo</a></li>
                     <li><a href="about.html">Nosotros</a></li>
+                    <li><a href="https://maps.app.goo.gl/QyMt76Eo8Yr2KrZt5" target="_blank" rel="noopener">Cómo llegar</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <p>
                     <i class="fab fa-whatsapp"></i>
-                    <a href="https://wa.me/51947872207" target="_blank" rel="noopener">Haz clic aquí</a>
+                    <a href="https://wa.me/51947872207" target="_blank" rel="noopener">+51 947 872 207</a>
                 </p>
-                <p><i class="fas fa-envelope"></i> </p>
                 <p><i class="fas fa-map-marker-alt"></i> Jr. Conchucos 120 - Cercado de Lima</p>
+                <p><i class="fas fa-clock"></i> Lun a Sáb: 8:30 a.m. - 8:00 p.m.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Compra Rápida</h3>
+                <p>Envíanos tu lista escolar por WhatsApp y te ayudamos a completar tu pedido.</p>
+                <a class="btn btn-primary" href="https://wa.me/51947872207" target="_blank" rel="noopener">Solicitar cotización</a>
             </div>
         </div>
         <div
             style="text-align: center; padding-top: var(--spacing-lg); border-top: 1px solid #333; margin-top: var(--spacing-lg);">
-            <p>&copy; 2026 LIBRERÍA BELEN. Todos los derechos reservados.</p>
+            <p>&copy; <span data-current-year>2026</span> LIBRERÍA BELEN. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -237,9 +254,9 @@
         <span>Consulta aquí</span>
     </a>
 
-    <script src="vendor/jspdf/jspdf.umd.min.js"></script>
-    <script src="data/products.js"></script>
-    <script src="js/app.js"></script>
+    <script src="vendor/jspdf/jspdf.umd.min.js" defer></script>
+    <script src="data/products.js" defer></script>
+    <script src="js/app.js" defer></script>
 </body>
 
 </html>
