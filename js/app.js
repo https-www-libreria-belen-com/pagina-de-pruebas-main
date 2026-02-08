@@ -30,9 +30,11 @@ let currentSubcategory = 'all';
 let currentBrand = 'all';
 let currentMaxPrice = Infinity;
 let currentSearchQuery = '';
+let productsLoadPromise = null;
 const PRICES_PENDING = true;
 const PRICE_LABEL = 'PRÓXIMAMENTE';
 const THEME_STORAGE_KEY = 'libreriaBelenTheme';
+const PRODUCTS_SCRIPT_PATH = 'data/products.js';
 const CATEGORY_LABELS = {
     papeleria: 'Papelería',
     utiles: 'Útiles escolares',
@@ -197,7 +199,6 @@ function initImageFallbackHandler() {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
-    loadProducts();
     updateCartCount();
     initImageFallbackHandler();
     initSearchUI();
@@ -212,36 +213,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productGrid) {
         // Catalog Page Logic
         renderCatalogSkeleton(8);
-        renderCategories();
-        renderBrandFilters();
-        initSortSelect();
-        const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category');
-        const searchQuery = urlParams.get('search');
+        ensureProductsLoaded().then(() => {
+            renderCategories();
+            renderBrandFilters();
+            initSortSelect();
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            const searchQuery = urlParams.get('search');
 
-        if (category) {
-            setTimeout(() => {
-                const normalizedCategory = normalizeCategory(category, '');
-                const radio = document.querySelector(`input[name="category"][value="${normalizedCategory}"]`);
-                if (radio) radio.checked = true;
-                filterProducts(normalizedCategory);
-            }, 0);
-        } else if (searchQuery) {
-            setTimeout(() => {
-                const input = document.getElementById('searchInput');
-                if (input) input.value = searchQuery;
-                handleSearchInput(searchQuery, false, true);
-            }, 0);
-        } else {
-            currentProducts = products;
-            applyFilters();
-        }
+            if (category) {
+                setTimeout(() => {
+                    const normalizedCategory = normalizeCategory(category, '');
+                    const radio = document.querySelector(`input[name="category"][value="${normalizedCategory}"]`);
+                    if (radio) radio.checked = true;
+                    filterProducts(normalizedCategory);
+                }, 0);
+            } else if (searchQuery) {
+                setTimeout(() => {
+                    const input = document.getElementById('searchInput');
+                    if (input) input.value = searchQuery;
+                    handleSearchInput(searchQuery, false, true);
+                }, 0);
+            } else {
+                currentProducts = products;
+                applyFilters();
+            }
+        }).catch(() => {
+            if (productGrid) {
+                productGrid.innerHTML = '<p class="no-results" style="grid-column:1/-1; text-align:center; padding: 2rem;">No se pudo cargar el catálogo.</p>';
+            }
+        });
     }
 
     if (featuredCarousel) {
         renderFeaturedSkeleton(4);
-        renderFeaturedCarousel();
-        startCarouselAutoScroll();
+        ensureProductsLoaded().then(() => {
+            renderFeaturedCarousel();
+            startCarouselAutoScroll();
+        }).catch(() => {
+            if (featuredCarousel) {
+                featuredCarousel.innerHTML = '<p style="text-align: center; width: 100%; padding: 2rem;">No se pudieron cargar novedades.</p>';
+            }
+        });
     }
 
     // Close Modals on outside click
@@ -251,6 +264,45 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (event.target == productDetailModal) closeProductModal();
     }
 });
+
+function ensureProductsLoaded() {
+    if (products.length > 0) return Promise.resolve(products);
+
+    if (typeof window.PRODUCTS !== 'undefined') {
+        loadProducts();
+        return Promise.resolve(products);
+    }
+
+    if (productsLoadPromise) return productsLoadPromise;
+
+    productsLoadPromise = new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${PRODUCTS_SCRIPT_PATH}"]`);
+        if (existing) {
+            existing.addEventListener('load', () => {
+                loadProducts();
+                resolve(products);
+            }, { once: true });
+            existing.addEventListener('error', () => {
+                reject(new Error('No se pudo cargar products.js'));
+            }, { once: true });
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = PRODUCTS_SCRIPT_PATH;
+        script.defer = true;
+        script.onload = () => {
+            loadProducts();
+            resolve(products);
+        };
+        script.onerror = () => reject(new Error('No se pudo cargar products.js'));
+        document.head.appendChild(script);
+    }).finally(() => {
+        productsLoadPromise = null;
+    });
+
+    return productsLoadPromise;
+}
 
 function initHeroCarousel() {
     const root = document.querySelector('[data-hero-carousel]');
@@ -603,6 +655,11 @@ function handleCategorySearch(category) {
     const input = document.getElementById('searchInput');
     if (input) input.value = '';
 
+    if (products.length === 0) {
+        ensureProductsLoaded().then(() => handleCategorySearch(category)).catch(() => {});
+        return;
+    }
+
     if (productGrid) {
         const radio = document.querySelector(`input[name="category"][value="${category}"]`);
         if (radio) {
@@ -620,6 +677,12 @@ function handleCategorySearch(category) {
 function handleBrandSearch(brand) {
     const input = document.getElementById('searchInput');
     if (input) input.value = brand;
+
+    if (products.length === 0) {
+        ensureProductsLoaded().then(() => handleBrandSearch(brand)).catch(() => {});
+        return;
+    }
+
     const filtered = filterBySearch(products, brand);
     if (productGrid) {
         currentPage = 1;
@@ -1073,6 +1136,18 @@ function addToCartFromDetail() {
 // Search Logic
 function handleSearchInput(query, showDropdown = true, immediate = false) {
     currentSearchQuery = query;
+
+    if (products.length === 0) {
+        ensureProductsLoaded()
+            .then(() => handleSearchInput(query, showDropdown, immediate))
+            .catch(() => {
+                const searchResults = document.getElementById('searchResults');
+                if (!searchResults || !showDropdown) return;
+                searchResults.innerHTML = '<div class="search-empty">No se pudo cargar el buscador</div>';
+                searchResults.classList.add('active');
+            });
+        return;
+    }
 
     const runSearch = () => {
         const filtered = filterBySearch(products, query);
