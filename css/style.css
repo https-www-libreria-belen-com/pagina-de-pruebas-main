@@ -1751,13 +1751,14 @@ footer {
 }
 
 .catalog-toolbar-zone {
-    position: sticky;
-    top: 0.5rem;
-    z-index: 20;
+    position: static;
     margin-bottom: 0.9rem;
 }
 
 .catalog-toolbar {
+    position: sticky;
+    top: 0.5rem;
+    z-index: 1200;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1766,6 +1767,7 @@ footer {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     background: #fff;
+    box-shadow: var(--shadow-sm);
 }
 
 .catalog-sort {
@@ -1944,6 +1946,7 @@ footer {
     }
 
     .catalog-toolbar {
+        top: 0.35rem;
         flex-direction: column;
         align-items: stretch;
     }

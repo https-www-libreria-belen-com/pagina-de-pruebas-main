@@ -32,7 +32,7 @@ let currentMaxPrice = Infinity;
 let currentSearchQuery = '';
 let productsLoadPromise = null;
 const PRICES_PENDING = true;
-const PRICE_LABEL = 'PRÓXIMAMENTE';
+const PRICE_LABEL = '0';
 const THEME_STORAGE_KEY = 'libreriaBelenTheme';
 const PRODUCTS_SCRIPT_PATH = 'data/products.js';
 const CATEGORY_LABELS = {
@@ -2122,3 +2122,4 @@ function initPremiumFeatures() {
     initBackToTop();
     updateFavoriteButtons();
 }
+
