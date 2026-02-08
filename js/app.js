@@ -1792,7 +1792,7 @@ function initDynamicYear() {
 
 function initVisualMicroInteractions() {
     const targets = document.querySelectorAll(
-        '.home-hero, .trust-badges, .trust-metrics, .carousel-container, .location-section, .about-content, .product-grid, .footer-content'
+        '.home-hero, .conversion-strip, .trust-badges, .trust-metrics, .carousel-container, .location-section, .about-content, .product-grid, .footer-content'
     );
 
     if (!targets.length) return;
