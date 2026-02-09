@@ -308,6 +308,7 @@ function initHeroCarousel() {
     const root = document.querySelector('[data-hero-carousel]');
     if (!root) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animationMs = 1300;
 
     const slides = Array.from(root.querySelectorAll('[data-hero-slide]'));
     const dots = Array.from(root.querySelectorAll('[data-hero-dot]'));
@@ -318,12 +319,76 @@ function initHeroCarousel() {
     let index = slides.findIndex(slide => slide.classList.contains('is-active'));
     if (index < 0) index = 0;
     let timer = null;
+    let animating = false;
+    let animationFrame = null;
+
+    const syncUiState = (activeIndex) => {
+        dots.forEach((dot, i) => {
+            const active = i === activeIndex;
+            dot.classList.toggle('is-active', active);
+            dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        slides.forEach((slide, i) => {
+            slide.setAttribute('aria-hidden', i === activeIndex ? 'false' : 'true');
+        });
+    };
+
+    const cleanAnimationClasses = (slide) => {
+        slide.classList.remove('is-entering', 'is-leaving', 'to-next', 'to-prev');
+    };
+
+    const getDirection = (current, target) => {
+        if (slides.length <= 1 || current === target) return 'to-next';
+        if (current === slides.length - 1 && target === 0) return 'to-next';
+        if (current === 0 && target === slides.length - 1) return 'to-prev';
+        return target > current ? 'to-next' : 'to-prev';
+    };
 
     const setActive = (next) => {
         const safeNext = (next + slides.length) % slides.length;
-        slides[index].classList.remove('is-active');
-        slides[safeNext].classList.add('is-active');
-        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === safeNext));
+        if (animating) return;
+        if (safeNext === index && slides[index].classList.contains('is-active')) {
+            syncUiState(safeNext);
+            return;
+        }
+
+        const currentSlide = slides[index];
+        const nextSlide = slides[safeNext];
+        const direction = getDirection(index, safeNext);
+
+        if (prefersReducedMotion) {
+            cleanAnimationClasses(currentSlide);
+            cleanAnimationClasses(nextSlide);
+            currentSlide.classList.remove('is-active');
+            nextSlide.classList.add('is-active');
+            index = safeNext;
+            syncUiState(index);
+            return;
+        }
+
+        animating = true;
+        slides.forEach(cleanAnimationClasses);
+
+        currentSlide.classList.remove('is-active');
+        currentSlide.classList.add('is-leaving', direction);
+
+        nextSlide.classList.add('is-active', 'is-entering', direction);
+        syncUiState(safeNext);
+
+        if (animationFrame) {
+            clearTimeout(animationFrame);
+            animationFrame = null;
+        }
+
+        animationFrame = setTimeout(() => {
+            cleanAnimationClasses(currentSlide);
+            cleanAnimationClasses(nextSlide);
+            index = safeNext;
+            animating = false;
+            animationFrame = null;
+            syncUiState(index);
+        }, animationMs);
+
         index = safeNext;
     };
 
@@ -2122,4 +2187,3 @@ function initPremiumFeatures() {
     initBackToTop();
     updateFavoriteButtons();
 }
-
