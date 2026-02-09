@@ -103,7 +103,7 @@ body {
     gap: 2rem;
     white-space: nowrap;
     padding-left: 100%;
-    animation: announcementTicker 16s linear infinite;
+    animation: announcementTicker 24s linear infinite;
 }
 
 .announcement-content:hover {
@@ -1623,6 +1623,12 @@ footer {
         justify-content: space-between;
         white-space: normal;
     }
+
+    .home-hero-slide,
+    .home-hero-slide.is-active {
+        transition: none;
+        animation: none;
+    }
 }
 
 /* Unified UI Layer */
@@ -1653,21 +1659,94 @@ footer {
 
 .home-hero-track {
     position: relative;
+    aspect-ratio: 4 / 1;
+    perspective: 1800px;
+    perspective-origin: center;
+    transform-style: preserve-3d;
+    isolation: isolate;
 }
 
 .home-hero-slide {
-    display: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: rotateY(88deg);
+    transform-origin: right center;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .home-hero-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: rotateY(0deg);
+    z-index: 3;
+    pointer-events: auto;
+}
+
+.home-hero-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, rgba(2, 6, 23, 0.26), transparent 36%),
+        linear-gradient(to top, rgba(15, 23, 42, 0.25), transparent 45%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.home-hero-slide.is-entering,
+.home-hero-slide.is-leaving {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: none;
+    animation-duration: 1.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-hero-slide.is-entering {
+    z-index: 4;
+}
+
+.home-hero-slide.is-leaving {
+    z-index: 5;
+}
+
+.home-hero-slide.is-entering.to-next {
+    transform-origin: right center;
+    animation-name: heroPageInNext;
+}
+
+.home-hero-slide.is-leaving.to-next {
+    transform-origin: left center;
+    animation-name: heroPageOutNext;
+}
+
+.home-hero-slide.is-entering.to-prev {
+    transform-origin: left center;
+    animation-name: heroPageInPrev;
+}
+
+.home-hero-slide.is-leaving.to-prev {
+    transform-origin: right center;
+    animation-name: heroPageOutPrev;
+}
+
+.home-hero-media {
     display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .home-hero-media img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 1;
+    height: 100%;
     object-fit: cover;
+    transform-origin: center;
 }
 
 .home-hero-controls {
@@ -1693,10 +1772,12 @@ footer {
     border: none;
     background: rgba(255, 255, 255, 0.6);
     cursor: pointer;
+    transition: transform var(--transition-smooth), background-color var(--transition-smooth);
 }
 
 .home-hero-dot.is-active {
     background: #fff;
+    transform: scale(1.18);
 }
 
 .home-hero-nav {
@@ -1710,6 +1791,57 @@ footer {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: transform var(--transition-smooth), background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.home-hero-nav:hover {
+    transform: translateY(-1px) scale(1.03);
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.92);
+}
+
+@keyframes heroPageOutNext {
+    0% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotateY(-88deg);
+        opacity: 0.34;
+    }
+}
+
+@keyframes heroPageInNext {
+    0% {
+        transform: rotateY(88deg);
+        opacity: 0.42;
+    }
+    100% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes heroPageOutPrev {
+    0% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotateY(88deg);
+        opacity: 0.34;
+    }
+}
+
+@keyframes heroPageInPrev {
+    0% {
+        transform: rotateY(-88deg);
+        opacity: 0.42;
+    }
+    100% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
 }
 
 .conversion-strip {
@@ -1966,7 +2098,7 @@ footer {
         padding-bottom: 74px;
     }
 
-    .home-hero-media img {
+    .home-hero-track {
         aspect-ratio: 3 / 2;
     }
 
